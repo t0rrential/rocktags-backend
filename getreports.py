@@ -8,7 +8,7 @@ from classes import TrackerRequest
 
 from findmy import KeyPair
 
-STORE_PATH = "account.json"
+STORE_PATH = "/secrets/account.json"
 
 ANISETTE_SERVER = None
 
