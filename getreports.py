@@ -3,10 +3,8 @@
 import asyncio
 import logging
 
-from json import dumps
-
 from _login import get_account_async
-from classes import trackerRequest
+from classes import TrackerRequest
 
 from findmy import KeyPair
 
@@ -19,7 +17,7 @@ ANISETTE_LIBS_PATH = "ani_libs.bin"
 logging.basicConfig(level=logging.INFO)
 
 
-async def fetch_reports(request: trackerRequest) -> str:
+async def fetch_reports(request: TrackerRequest) -> str:
     acc = await get_account_async(STORE_PATH, ANISETTE_SERVER, ANISETTE_LIBS_PATH)
     response = {}
 
@@ -27,9 +25,9 @@ async def fetch_reports(request: trackerRequest) -> str:
         print(f"Logged in as: {acc.account_name} ({acc.first_name} {acc.last_name})")
 
         # should probably use asyncio.gather here for multiple trackers
-        for request in trackerRequest.trackers:
-            name = request.name
-            priv_key = request.privateKey
+        for tracker in request.trackers:
+            name = tracker.name
+            priv_key = tracker.privateKey
             key = KeyPair.from_b64(priv_key)
             location = await acc.fetch_location(key)
             
@@ -47,4 +45,4 @@ async def fetch_reports(request: trackerRequest) -> str:
         # Otherwise you have to log in again...
         acc.to_json(STORE_PATH)
 
-    return dumps(response, indent=4)
+    return response

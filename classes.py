@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
-class tracker():
+class Tracker(BaseModel):
     name: str
     privateKey: str
 
-class trackerRequest(BaseModel):
-    trackers: list[tracker]
+class TrackerRequest(BaseModel):
+    trackers: list[Tracker]
 
