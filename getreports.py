@@ -32,10 +32,10 @@ async def fetch_reports(request: TrackerRequest) -> str:
             location = await acc.fetch_location(key)
             
             response[name] = {
-                "latitude": location.latitude(),
-                "longitude": location.longitude(),
-                "timestamp": location.timestamp().isoformat(),
-                "status": location.status(),
+                "latitude": location.latitude,
+                "longitude": location.longitude,
+                "timestamp": location.timestamp.isoformat(),
+                "status": location.status,
             }
             
     finally:
