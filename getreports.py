@@ -8,11 +8,11 @@ from classes import TrackerRequest
 
 from findmy import KeyPair
 
-STORE_PATH = "/secrets/account.json"
+STORE_PATH = "/mnt/storage/account.json"
 
 ANISETTE_SERVER = None
 
-ANISETTE_LIBS_PATH = "ani_libs.bin"
+ANISETTE_LIBS_PATH = "/mnt/storage/ani_libs.bin"
 
 logging.basicConfig(level=logging.INFO)
 
