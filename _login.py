@@ -1,4 +1,5 @@
 from __future__ import annotations
+from os.path import exists, getsize
 
 from findmy import (
     AppleAccount,
@@ -73,7 +74,7 @@ def get_account_sync(
     """Tries to restore a saved Apple account, or prompts the user for login otherwise. (sync)"""
     try:
         acc = AppleAccount.from_json(store_path, anisette_libs_path=libs_path)
-    except FileNotFoundError:
+    except FileNotFoundError or (exists(store_path) and getsize(store_path) <= 0):
         ani = (
             LocalAnisetteProvider(libs_path=libs_path)
             if anisette_url is None
@@ -95,7 +96,7 @@ async def get_account_async(
     """Tries to restore a saved Apple account, or prompts the user for login otherwise. (async)"""
     try:
         acc = AsyncAppleAccount.from_json(store_path, anisette_libs_path=libs_path)
-    except FileNotFoundError:
+    except FileNotFoundError or (exists(store_path) and getsize(store_path) <= 0):
         ani = (
             LocalAnisetteProvider(libs_path=libs_path)
             if anisette_url is None
