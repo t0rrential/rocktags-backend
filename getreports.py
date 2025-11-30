@@ -6,7 +6,8 @@ import logging
 from _login import get_account_async
 from classes import TrackerRequest
 
-from findmy import KeyPair
+from findmy import KeyPair, LocalAnisetteProvider
+from os.path import getsize, exists
 
 STORE_PATH = "/mnt/storage/account.json"
 
@@ -19,6 +20,10 @@ logging.basicConfig(level=logging.INFO)
 
 async def fetch_reports(request: TrackerRequest) -> str:
     acc = await get_account_async(STORE_PATH, ANISETTE_SERVER, ANISETTE_LIBS_PATH)
+    
+    # fallback if _login doesn't set anisette_provider correctly
+    if ANISETTE_LIBS_PATH and exists(ANISETTE_LIBS_PATH) and getsize(ANISETTE_LIBS_PATH) == 0:
+        acc.anisette_provider = LocalAnisetteProvider(libs_path=ANISETTE_LIBS_PATH)
     response = {}
 
     try:

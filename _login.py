@@ -74,11 +74,12 @@ def get_account_sync(
 ) -> AppleAccount:
     """Tries to restore a saved Apple account, or prompts the user for login otherwise. (sync)"""
     try:
-        acc = AppleAccount.from_json(store_path, anisette_libs_path=libs_path)
-    except FileNotFoundError or (exists(store_path) and getsize(store_path) <= 0):
-        if exists(store_path) and getsize(store_path) <= 0:
+        binarySize = getsize(libs_path) if libs_path else -1
+        print(f"Size of binary is {binarySize}.")
+        if (binarySize == 0):
             remove(store_path)
-        
+        acc = AppleAccount.from_json(store_path, anisette_libs_path=libs_path)
+    except FileNotFoundError:
         ani = (
             LocalAnisetteProvider(libs_path=libs_path)
             if anisette_url is None
