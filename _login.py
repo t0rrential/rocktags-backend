@@ -73,6 +73,9 @@ def get_account_sync(
     libs_path: str | None,
 ) -> AppleAccount:
     """Tries to restore a saved Apple account, or prompts the user for login otherwise. (sync)"""
+    if libs_path and exists(libs_path) and getsize(libs_path) <= 0:
+        remove(libs_path)
+
     try:
         binarySize = getsize(libs_path) if libs_path else -1
         print(f"Size of binary is {binarySize}.")
@@ -99,6 +102,9 @@ async def get_account_async(
     libs_path: str | None,
 ) -> AsyncAppleAccount:
     """Tries to restore a saved Apple account, or prompts the user for login otherwise. (async)"""
+    if libs_path and exists(libs_path) and getsize(libs_path) <= 0:
+        remove(libs_path)
+
     try:
         acc = AsyncAppleAccount.from_json(store_path, anisette_libs_path=libs_path)
     except FileNotFoundError or (exists(store_path) and getsize(store_path) <= 0):
