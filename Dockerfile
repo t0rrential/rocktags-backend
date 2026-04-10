@@ -1,3 +1,6 @@
+FROM gcr.io/google.com/cloudsdktool/cloud-sdk:slim AS downloader
+RUN gsutil cp gs://findmy-test/ani_libs.bin /tmp/ani_libs.bin
+
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -15,6 +18,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY --from=downloader /tmp/ani_libs.bin /app/ani_libs.bin
 
 EXPOSE 6970
 
