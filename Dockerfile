@@ -15,6 +15,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY ani_libs.bin /app/ani_libs.bin
 
 EXPOSE 6970
 

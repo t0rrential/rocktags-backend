@@ -29,10 +29,12 @@ ANISETTE_SERVER = None
 
 ANISETTE_LIBS_PATH = "ani_libs.bin"
 
-acc = await get_account_async(STORE_PATH, ANISETTE_SERVER, ANISETTE_LIBS_PATH)
+async def main():
+	acc = await get_account_async(STORE_PATH, ANISETTE_SERVER, ANISETTE_LIBS_PATH)
+	await acc.close()
+	acc.to_json(STORE_PATH)
 
-await acc.close()
-acc.to_json(STORE_PATH)
+asyncio.run(main())
 ```
 
 Run this script and log in through the command terminal. `account.json` and `ani_libs.json` should now be in there.
@@ -53,6 +55,8 @@ Deploy this container to GCP Cloud Run. To set up the service, use these setting
 You can configure the other settings as you like.
 
 Make sure your Cloud Run service account has access to the bucket, and then mount the bucket as a volume under `/mnt/storage`.
+
+Then, configure  `cloudbuild.yaml` to use your bucket instead of the default `findmy-bucket`.
 
 ## how to use
 
