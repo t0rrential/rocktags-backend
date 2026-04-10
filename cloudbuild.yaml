@@ -1,7 +1,4 @@
 steps:
-  - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', 'gs://findmy-bucket/ani_libs.bin', 'ani_libs.bin']
-
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/rocktags-backend', '.']
 

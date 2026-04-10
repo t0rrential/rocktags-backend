@@ -13,7 +13,7 @@ STORE_PATH = "/mnt/storage/account.json"
 
 ANISETTE_SERVER = None
 
-ANISETTE_LIBS_PATH = "/app/ani_libs.bin"
+ANISETTE_LIBS_PATH = "/mnt/findmy-test/ani_libs.bin"
 
 logging.basicConfig(level=logging.INFO)
 
