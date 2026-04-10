@@ -7,3 +7,6 @@ steps:
 
 images:
   - gcr.io/$PROJECT_ID/rocktags-backend
+
+options:
+  logging: CLOUD_LOGGING_ONLY
